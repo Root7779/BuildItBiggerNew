@@ -12,28 +12,31 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.vyas.pranav.androidjokelib.JokeTellingActivityLib;
 import com.vyas.pranav.javajokelibrary.Joker;
 
 import static com.vyas.pranav.androidjokelib.JokeTellingActivityLib.JOKE_KEY;
 
-public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback{
+public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback,EndpointsAsyncTask.AsyncCallbackBegin{
     private static final String TAG = "MainActivityNewFree";
     ProgressBar progress;
+    private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        progress = new ProgressBar(this);
+        progress = findViewById(R.id.progressBarMain);
         showAds();
+        initlizeInterAdd();
     }
 
     public void tellJoke(View view) {
         Joker jokerJavaLib = new Joker();
         String joke = jokerJavaLib.getJoke();
-        Log.d(TAG, "tellJoke: Starting ProgressBar");
-        progress.setVisibility(View.VISIBLE);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joke));
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        asyncTask.execute(joke);
     }
 
 
@@ -45,6 +48,9 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         Intent intent = new Intent(this, JokeTellingActivityLib.class);
         intent.putExtra(JOKE_KEY,jokeString);
         startActivity(intent);
+        if(mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
     }
 
     public void showAds(){
@@ -57,5 +63,21 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+    }
+
+    @Override
+    public void startedProgress(boolean isStarted) {
+        Log.d(TAG, "tellJoke: Starting ProgressBar");
+        progress.setVisibility(View.VISIBLE);
+    }
+
+    public void initlizeInterAdd(){
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        mInterstitialAd.loadAd(
+                new AdRequest.Builder()
+                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).
+                        build()
+        );
     }
 }

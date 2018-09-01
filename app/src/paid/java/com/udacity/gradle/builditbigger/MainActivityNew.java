@@ -10,30 +10,27 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.vyas.pranav.androidjokelib.JokeTellingActivityLib;
 import com.vyas.pranav.javajokelibrary.Joker;
 
 import static com.vyas.pranav.androidjokelib.JokeTellingActivityLib.JOKE_KEY;
 
-public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback{
+public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback,EndpointsAsyncTask.AsyncCallbackBegin{
     private static final String TAG = "MainActivityNewPaid";
     ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
-        progress = new ProgressBar(this);
+        progress = findViewById(R.id.progressBarMain);
         android.widget.Toast.makeText(this, "Not Showing Ads", Toast.LENGTH_SHORT).show();
     }
 
     public void tellJoke(View view) {
         Joker jokerJavaLib = new Joker();
         String joke = jokerJavaLib.getJoke();
-        Log.d(TAG, "tellJoke: Starting ProgressBar");
-        progress.setVisibility(View.VISIBLE);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joke));
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        asyncTask.execute(joke);
     }
 
 
@@ -45,5 +42,11 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         Intent intent = new Intent(this, JokeTellingActivityLib.class);
         intent.putExtra(JOKE_KEY,jokeString);
         startActivity(intent);
+    }
+
+    @Override
+    public void startedProgress(boolean isStarted) {
+        Log.d(TAG, "tellJoke: Starting ProgressBar");
+        progress.setVisibility(View.VISIBLE);
     }
 }

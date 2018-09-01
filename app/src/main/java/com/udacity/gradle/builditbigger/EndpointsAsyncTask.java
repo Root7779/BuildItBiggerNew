@@ -12,13 +12,27 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
     private AsyncCallback mCallback;
+    private AsyncCallbackBegin mBeginCallback;
+    private String name;
+
+    public EndpointsAsyncTask(Context context, AsyncCallback mCallback, AsyncCallbackBegin mBeginCallback) {
+        this.context = context;
+        this.mCallback = mCallback;
+        this.mBeginCallback = mBeginCallback;
+    }
 
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mBeginCallback.startedProgress(true);
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -38,8 +52,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
             myApiService = builder.build();
         }
-        context = params[0].first;
-        String name = params[0].second;
+        name = params[0];
         try {
             return myApiService.sayHi(name).execute().getData();
         } catch (IOException e) {
@@ -50,11 +63,14 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
-        mCallback = (AsyncCallback) context;
         mCallback.getString(result);
     }
 
     public interface AsyncCallback{
         void getString(String jokeString);
+    }
+
+    public interface AsyncCallbackBegin{
+        void startedProgress(boolean isStarted);
     }
 }
