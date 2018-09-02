@@ -64,3 +64,11 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 }
+
+task runTests{
+    dependsOn tasks.getByPath(":backend:appengineStart")
+    dependsOn connectedCheck
+
+    connectedCheck.mustRunAfter((":backend:appengineStart"))
+    connectedCheck.finalizedBy(tasks.getByPath(":backend:appengineStop"))
+}
