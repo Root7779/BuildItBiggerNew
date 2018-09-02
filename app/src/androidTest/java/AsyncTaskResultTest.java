@@ -9,10 +9,10 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.ExecutionException;
 
 @RunWith(AndroidJUnit4.class)
-public class AsyncTaskResultTest extends AndroidTestCase{
+public class AsyncTaskResultTest extends AndroidTestCase implements EndpointsAsyncTask.AsyncCallbackBegin,EndpointsAsyncTask.AsyncCallback{
     @Test
     public void checkOutputAsyncTaskIsNullOrNot(){
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(getContext());
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(getContext(),this,this);
         try {
             String str = asyncTask.execute("Test").get();
             assertEquals("Test",str);
@@ -21,5 +21,15 @@ public class AsyncTaskResultTest extends AndroidTestCase{
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void getString(String jokeString) {
+
+    }
+
+    @Override
+    public void startedProgress(boolean isStarted) {
+
     }
 }

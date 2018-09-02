@@ -35,7 +35,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
     public void tellJoke(View view) {
         Joker jokerJavaLib = new Joker();
         String joke = jokerJavaLib.getJoke();
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this);
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
         asyncTask.execute(joke);
     }
 

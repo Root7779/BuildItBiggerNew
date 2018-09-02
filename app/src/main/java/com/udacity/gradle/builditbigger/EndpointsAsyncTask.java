@@ -21,17 +21,17 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private AsyncCallbackBegin mBeginCallback;
     private String name;
 
-    public EndpointsAsyncTask(Context context) {
+    public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
         this.context = context;
-        this.mCallback = (AsyncCallback) context;
-        this.mBeginCallback = (AsyncCallbackBegin) context;
+        this.mCallback = mCallback;
+        this.mBeginCallback = mBeginCallback;
     }
 
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//        mBeginCallback.startedProgress(true);
-//    }
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mBeginCallback.startedProgress(true);
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -64,10 +64,10 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
 
     }
 
-//    @Override
-//    protected void onPostExecute(String result) {
-//        mCallback.getString(result);
-//    }
+    @Override
+    protected void onPostExecute(String result) {
+        mCallback.getString(result);
+    }
 
     public interface AsyncCallback{
         void getString(String jokeString);
