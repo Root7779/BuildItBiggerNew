@@ -19,8 +19,3 @@ Sep 02, 2018 12:57:26 PM com.google.appengine.tools.development.AbstractModule s
 INFO: The admin console is running at http://localhost:8080/_ah/admin
 Sep 02, 2018 6:27:26 PM com.google.appengine.tools.development.DevAppServerImpl doStart
 INFO: Dev App Server is now running
-Sep 02, 2018 6:30:24 PM com.google.appengine.tools.development.AbstractModule shutdown
-INFO: Shutting down module instance default
-Shutting down.
-Sep 02, 2018 6:30:24 PM com.google.appengine.api.datastore.dev.LocalDatastoreService cleanupActiveServices
-INFO: scheduler shutting down.

@@ -12,6 +12,8 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
+import javax.sql.StatementEvent;
+
 public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
@@ -19,7 +21,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private AsyncCallbackBegin mBeginCallback;
     private String name;
 
-    public EndpointsAsyncTask(Context context, AsyncCallback mCallback, AsyncCallbackBegin mBeginCallback) {
+    public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
         this.context = context;
         this.mCallback = mCallback;
         this.mBeginCallback = mBeginCallback;
@@ -54,7 +56,8 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
         }
         name = params[0];
         try {
-            return myApiService.sayHi(name).execute().getData();
+            String str = myApiService.sayHi(name).execute().getData().substring(4);
+            return str;
         } catch (IOException e) {
             return e.getMessage();
         }
