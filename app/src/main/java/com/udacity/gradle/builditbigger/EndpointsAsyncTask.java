@@ -2,7 +2,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -12,13 +11,13 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-import javax.sql.StatementEvent;
+import static com.vyas.pranav.androidjokelib.JokeTellingActivityLib.ErrorDefaultString;
 
 public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private static MyApi myApiService = null;
-    private Context context;
-    private AsyncCallback mCallback;
-    private AsyncCallbackBegin mBeginCallback;
+    private final Context context;
+    private final AsyncCallback mCallback;
+    private final AsyncCallbackBegin mBeginCallback;
     private String name;
 
     public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
@@ -41,9 +40,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://172.32.1.86:8080/_ah/api/") //For Physical Devices
-                    //TODO Put Compute's IP Address in http://<here>/_ah/api
-                    //.setRootUrl("http://10.0.2.2:8080/_ah/api/") //For Emulator
+                    .setRootUrl("http://"+context.getString(R.string.IP_ADDRESS)+":8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -59,7 +56,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
             String str = myApiService.sayHi(name).execute().getData().substring(4);
             return str;
         } catch (IOException e) {
-            return e.getMessage();
+            return ErrorDefaultString+e.getMessage();
         }
 
     }

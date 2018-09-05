@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Build it Bigger</string>
     <string name="instructions">Press the button for a delicious joke!</string>
-    <string name="button_text">Tell Joke</string>
-    <string name="action_settings">Settings</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="IP_ADDRESS"><!--TODO Put Compute's IP Address-->
+        <!--In Case of Emulator USe 10.0.2.2-->192.168.43.108</string>
+    <string name="button_text">Tell Me A Nice Joke</string>
+    <string name="action_about_us">About US</string>
+    <string name="about_us_message">The United States of America (USA), commonly known as the United States (U.S.) or America, is a federal republic composed of 50 states, a federal district, five major self-governing territories, and various possessions.[fn 6] At 3.8 million square miles (9.8 million km2), the United States is the world\'s third- or fourth-largest country by total area[fn 7] and just fractionally smaller than the entire continent of Europe\'s 3.9 million square miles. With a population of over 325 million people</string>
 </resources>

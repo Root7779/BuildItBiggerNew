@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidJokeLib</string>
+    <string name="SAMPE_JOKE">Sample Joke</string>
+    <string name="here_is_your_joke">Here is your Joke!</string>
+    <string name="i_liked_it">I Liked It!</string>
+    <string name="it_was_so_so">It was so so</string>
+    <string name="image_for_error">Image for error</string>
 </resources>
