@@ -19,6 +19,9 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private final AsyncCallback mCallback;
     private final AsyncCallbackBegin mBeginCallback;
     private String name;
+    //TODO Put Compute's IP Address in IPADDRESS String
+    //In Case of Emulator USe 10.0.2.2
+    private String IPADDRESS = "10.0.2.2";
 
     public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
         this.context = context;
@@ -38,9 +41,8 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
-                    // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://"+context.getString(R.string.IP_ADDRESS)+":8080/_ah/api/")
+                    .setRootUrl("http://"+IPADDRESS+":8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {

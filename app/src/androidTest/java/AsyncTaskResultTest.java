@@ -19,7 +19,7 @@ public class AsyncTaskResultTest extends AndroidTestCase implements EndpointsAsy
     @Test
     public void checkOutputAsyncTaskIsNullOrNot(){
         //Create AsyncTask
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(getContext(),this,this);
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(mContext,AsyncTaskResultTest.this,AsyncTaskResultTest.this);
         try {
             String str = asyncTask.execute("Test").get();
             assertEquals("Test",str);
