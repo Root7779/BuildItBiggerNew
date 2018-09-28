@@ -53,9 +53,7 @@ public class Joker {
 
             case 10:
                 return "Man: Hi, do you want to dance?\n" +
-                        "-\n" +
                         "Woman: Yeah, sure!\n" +
-                        "-\n" +
                         "Man: Great, go and dance, I want to talk to your pretty friend!";
 
             default:

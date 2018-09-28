@@ -21,7 +21,8 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private String name;
     //TODO Put Compute's IP Address in IPADDRESS String
     //In Case of Emulator USe 10.0.2.2
-    private String IPADDRESS = "10.0.2.2";
+    //private String IPADDRESS = "10.0.2.2";
+    private String IPADDRESS = "172.32.1.107";
 
     public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
         this.context = context;

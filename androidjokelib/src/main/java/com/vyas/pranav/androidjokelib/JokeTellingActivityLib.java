@@ -1,5 +1,7 @@
 package com.vyas.pranav.androidjokelib;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ public class JokeTellingActivityLib extends AppCompatActivity {
     private Button btnLike;
     private Button btnDislike;
     private ImageView imagError;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,21 @@ public class JokeTellingActivityLib extends AppCompatActivity {
         btnLike = findViewById(R.id.btnlike);
         btnDislike = findViewById(R.id.btnDislike);
         imagError = findViewById(R.id.image_error);
+        fab = findViewById(R.id.fab_btn);
 
-        String joke = getIntent().getStringExtra(JOKE_KEY);
+        final String joke = getIntent().getStringExtra(JOKE_KEY);
         tvJoke.setText(joke.replace(ErrorDefaultString,""));
         imagError.setVisibility(View.GONE);
         if(joke.contains(ErrorDefaultString)){
             checkError();
         }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendJoke(joke);
+            }
+        });
     }
     //Mehod to show message and dissmiss activity
     public void like(View view){
@@ -56,4 +67,13 @@ public class JokeTellingActivityLib extends AppCompatActivity {
         tvTitle.setText("Oops ! Some Error Has Occured :");
         imagError.setVisibility(View.VISIBLE);
     }
+
+    private void sendJoke(String joke){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.send_joke_message)+"\n"+joke);
+        intent.setType("text/plain");
+        startActivity(Intent.createChooser(intent,"Choose from which to share"));
+    }
+
 }

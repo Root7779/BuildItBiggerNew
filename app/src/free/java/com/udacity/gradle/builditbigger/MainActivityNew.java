@@ -79,8 +79,12 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         if(mInterstitialAd.isLoaded()){
             mInterstitialAd.show();
         }
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
-        asyncTask.execute(joke);
+        //TODO Remove 2 Comment while completeed Testing
+        //EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        //asyncTask.execute(joke);
+        Intent intent = new Intent(this, JokeTellingActivityLib.class);
+        intent.putExtra(JOKE_KEY,joke);
+        startActivity(intent);
     }
 
     /**

@@ -59,8 +59,12 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         String joke = jokerJavaLib.getJoke();
         //Toast.makeText(this, "Library Returned : "+joke, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "tellJoke: Joke is :"+joke);
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
-        asyncTask.execute(joke);
+        //TODO Remove 2 Comment while completeed Testing
+        //EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        //asyncTask.execute(joke);
+        Intent intent = new Intent(this, JokeTellingActivityLib.class);
+        intent.putExtra(JOKE_KEY,joke);
+        startActivity(intent);
     }
 
     /**
