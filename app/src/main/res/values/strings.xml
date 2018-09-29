@@ -15,4 +15,6 @@
 
     <!--Prefs Constants-->
     <string name="key_dark_enabled">key_dark_theme</string>
+    <string name="pref_dark_theme">Dark Theme</string>
+    <string name="paid_notice_free">Only Available in Paid version</string>
 </resources>

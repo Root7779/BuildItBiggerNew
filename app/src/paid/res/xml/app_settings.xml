@@ -5,5 +5,5 @@
         android:key="@string/key_dark_enabled"
         android:summaryOff="Disabled"
         android:summaryOn="Enabled"
-        android:title="Enable Dark Theme" />
+        android:title="@string/pref_dark_theme" />
 </PreferenceScreen>

@@ -4,6 +4,6 @@
         android:defaultValue="false"
         android:enabled="false"
         android:key="key_dark_theme"
-        android:summary="Only Available in Paid version"
-        android:title="Enable Dark Theme" />
+        android:summary="@string/paid_notice_free"
+        android:title="@string/pref_dark_theme" />
 </PreferenceScreen>
