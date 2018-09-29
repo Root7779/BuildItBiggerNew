@@ -51,7 +51,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
     private void showIntro(){
         if(SharedPrefsUtils.getFirstTimeForFile(this,"FIRST_TIME")){
             new AlertDialog.Builder(this)
-                    .setMessage("Thank you for Installing Paid App\nYou just gave me money for eating today's dinner ( in 5 Star Hotel;) ) !!!\nKeep this good work Up")
+                    .setMessage("Thank you for Installing Paid App\nYou just gave me money for eating today's dinner ( Just Kidding ;) ) !!!\nKeep this good work Up")
                     .setTitle("Paid Version")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -133,7 +133,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Toast.makeText(this,getString(R.string.warning_change_theme), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,getString(R.string.warning_change_theme), Toast.LENGTH_SHORT).show();
         this.recreate();
     }
 }

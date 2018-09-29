@@ -1,9 +1,13 @@
 package com.vyas.pranav.androidjokelib;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +24,8 @@ public class JokeTellingActivityLib extends AppCompatActivity {
     private Button btnDislike;
     private ImageView imagError;
     private FloatingActionButton fab;
+    private BottomNavigationView bottomNavigation;
+    private CoordinatorLayout containerBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,10 @@ public class JokeTellingActivityLib extends AppCompatActivity {
 
         tvJoke = findViewById(R.id.lib_text_joke_main);
         tvTitle = findViewById(R.id.text_main_title);
-        btnLike = findViewById(R.id.btnlike);
-        btnDislike = findViewById(R.id.btnDislike);
         imagError = findViewById(R.id.image_error);
         fab = findViewById(R.id.fab_btn);
+        bottomNavigation = findViewById(R.id.bottom_joke_library);
+        containerBottomNavigation = findViewById(R.id.coordinate_bottom);
 
         final String joke = getIntent().getStringExtra(JOKE_KEY);
         tvJoke.setText(joke.replace(ErrorDefaultString,""));
@@ -54,24 +60,32 @@ public class JokeTellingActivityLib extends AppCompatActivity {
                 sendJoke(joke);
             }
         });
-    }
-    //Mehod to show message and dissmiss activity
-    public void like(View view){
-        Toast.makeText(this, "Cool! Glad you liked It", Toast.LENGTH_LONG).show();
-        finish();
-    }
-    //Method to dissmiss Activity and show sarcastic message
-    public void dislike(View view){
-        Toast.makeText(this, "OH! I don't care !! LOL!\n(pun Intended)", Toast.LENGTH_LONG).show();
-        finish();
+
+        bottomNavigation.setSelectedItemId(R.id.menu_like);
+        bottomNavigation.setItemIconTintList(null);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int i = item.getItemId();
+                if (i == R.id.menu_like) {//Toast.makeText(JokeTellingActivityLib.this, "Clicked 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JokeTellingActivityLib.this, "Cool! Glad you liked It", Toast.LENGTH_LONG).show();
+                    finish();
+
+                } else if (i == R.id.menu_dislike) {//Toast.makeText(JokeTellingActivityLib.this, "Clicked 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JokeTellingActivityLib.this, "OH! I don't care !! LOL!\n(pun Intended)", Toast.LENGTH_LONG).show();
+                    finish();
+
+                }
+                return false;
+            }
+        });
     }
 
     /**
      * Check if Error Has Occurred and It Occurred Hides Button and Text
      */
     private void checkError(){
-        btnDislike.setVisibility(View.INVISIBLE);
-        btnLike.setVisibility(View.INVISIBLE);
+        containerBottomNavigation.setVisibility(View.INVISIBLE);
         tvTitle.setText("Oops ! Some Error Has Occured :");
         imagError.setVisibility(View.VISIBLE);
     }

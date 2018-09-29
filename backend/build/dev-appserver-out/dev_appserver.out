@@ -1,26 +1,21 @@
 Warning: Google App Engine Java 7 runtime is deprecated.
 Warning: See https://cloud.google.com/appengine/docs/deprecations/java7
-Sep 29, 2018 4:11:17 PM com.google.appengine.tools.development.SystemPropertiesManager setSystemProperties
+Sep 29, 2018 6:42:03 PM com.google.appengine.tools.development.SystemPropertiesManager setSystemProperties
 INFO: Overwriting system property key 'java.util.logging.config.file', value 'C:\Users\Pro\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine\google\appengine\tools\java\config\sdk\logging.properties' with value 'WEB-INF/logging.properties' from 'C:\Users\Pro\Desktop\BuildItBiggerNew\backend\build\exploded-backend\WEB-INF\appengine-web.xml'
-Sep 29, 2018 4:11:17 PM com.google.apphosting.utils.jetty.JettyLogger info
+Sep 29, 2018 6:42:03 PM com.google.apphosting.utils.jetty.JettyLogger info
 INFO: Logging to JettyLogger(null) via com.google.apphosting.utils.jetty.JettyLogger
-Sep 29, 2018 10:41:18 AM com.google.appengine.tools.development.IsolatedAppClassLoader checkWorkingDirectory
+Sep 29, 2018 1:12:03 PM com.google.appengine.tools.development.IsolatedAppClassLoader checkWorkingDirectory
 WARNING: Your working directory, (C:\Users\Pro\Desktop\BuildItBiggerNew\backend) is not equal to your 
 web application root (C:\Users\Pro\Desktop\BuildItBiggerNew\backend\build\exploded-backend)
 You will not be able to access files from your working directory on the production server.
 
-Sep 29, 2018 10:41:19 AM com.google.apphosting.utils.jetty.JettyLogger info
+Sep 29, 2018 1:12:03 PM com.google.apphosting.utils.jetty.JettyLogger info
 INFO: jetty-6.1.x
-Sep 29, 2018 10:41:21 AM com.google.apphosting.utils.jetty.JettyLogger info
+Sep 29, 2018 1:12:04 PM com.google.apphosting.utils.jetty.JettyLogger info
 INFO: Started SelectChannelConnector@0.0.0.0:8080
-Sep 29, 2018 10:41:21 AM com.google.appengine.tools.development.AbstractModule startup
+Sep 29, 2018 1:12:04 PM com.google.appengine.tools.development.AbstractModule startup
 INFO: Module instance default is running at http://localhost:8080/
-Sep 29, 2018 10:41:21 AM com.google.appengine.tools.development.AbstractModule startup
+Sep 29, 2018 1:12:04 PM com.google.appengine.tools.development.AbstractModule startup
 INFO: The admin console is running at http://localhost:8080/_ah/admin
-Sep 29, 2018 4:11:21 PM com.google.appengine.tools.development.DevAppServerImpl doStart
+Sep 29, 2018 6:42:04 PM com.google.appengine.tools.development.DevAppServerImpl doStart
 INFO: Dev App Server is now running
-Sep 29, 2018 4:43:43 PM com.google.appengine.tools.development.AbstractModule shutdown
-INFO: Shutting down module instance default
-Shutting down.
-Sep 29, 2018 4:43:43 PM com.google.appengine.api.datastore.dev.LocalDatastoreService cleanupActiveServices
-INFO: scheduler shutting down.
