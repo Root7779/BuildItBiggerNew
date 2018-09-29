@@ -4,4 +4,15 @@
     <string name="button_text">Tell Me A Nice Joke</string>
     <string name="action_about_us">About US</string>
     <string name="about_us_message">The United States of America (USA), commonly known as the United States (U.S.) or America, is a federal republic composed of 50 states, a federal district, five major self-governing territories, and various possessions.[fn 6] At 3.8 million square miles (9.8 million km2), the United States is the world\'s third- or fourth-largest country by total area[fn 7] and just fractionally smaller than the entire continent of Europe\'s 3.9 million square miles. With a population of over 325 million people</string>
+    <string name="about_us_dialog_txt">HA HA HA ... It is U.S. Not Us! Got You! Just joking Here After all this is joking App! *Don\'t Take it seriously</string>
+    <string name="about_us_dialog_title">Got You!</string>
+    <string name="about_us_dialog_positive_btn">OK You Got Me</string>
+    <string name="main_free_dialog_detail">This is a free Version... You might be seeing Ads in this version Install paid version for AdFree Experience</string>
+    <string name="warning_change_theme">Please Note that This application is restarting in background to apply changes
+        It might stuck for a second!
+        Be patient</string>
+    <string name="main_free_dialog_title">Free Version</string>
+
+    <!--Prefs Constants-->
+    <string name="key_dark_enabled">key_dark_theme</string>
 </resources>

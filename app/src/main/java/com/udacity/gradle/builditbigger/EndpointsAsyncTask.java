@@ -22,7 +22,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     //TODO Put Compute's IP Address in IPADDRESS String
     //In Case of Emulator USe 10.0.2.2
     //private String IPADDRESS = "10.0.2.2";
-    private String IPADDRESS = "172.32.1.107";
+    private final String IPADDRESS = "172.32.1.86";
 
     public EndpointsAsyncTask(Context context,AsyncCallback mCallback,AsyncCallbackBegin mBeginCallback) {
         this.context = context;
@@ -56,8 +56,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
         }
         name = params[0];
         try {
-            String str = myApiService.sayHi(name).execute().getData().substring(4);
-            return str;
+            return myApiService.sayHi(name).execute().getData().substring(4);
         } catch (IOException e) {
             return ErrorDefaultString+e.getMessage();
         }

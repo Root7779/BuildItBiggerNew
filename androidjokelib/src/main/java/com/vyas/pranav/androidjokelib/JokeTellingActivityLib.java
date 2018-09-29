@@ -23,6 +23,14 @@ public class JokeTellingActivityLib extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        boolean dark = getIntent().getBooleanExtra("KEY_DARK_ENABLED",false);
+        if(dark){
+            setTheme(R.style.Theme_AppCompat);
+            //Toast.makeText(this, "Dark Mode Enabled", Toast.LENGTH_SHORT).show();
+        }else{
+            setTheme(R.style.Theme_AppCompat_Light);
+            //Toast.makeText(this, "Dark Mode Disabled", Toast.LENGTH_SHORT).show();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke_telling_lib);
 
@@ -73,7 +81,7 @@ public class JokeTellingActivityLib extends AppCompatActivity {
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.send_joke_message)+"\n"+joke);
         intent.setType("text/plain");
-        startActivity(Intent.createChooser(intent,"Choose from which to share"));
+        startActivity(Intent.createChooser(intent,"Choose from which app to share"));
     }
 
 }

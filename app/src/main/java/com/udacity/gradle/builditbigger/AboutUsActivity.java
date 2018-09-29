@@ -9,6 +9,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPrefsUtils.setThemeAsUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
@@ -16,19 +17,21 @@ public class AboutUsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-//        if(SharedPrefsUtils.getFirstTimeForFile(this,"ABOUT_US")){
+        if(SharedPrefsUtils.getFirstTimeForFile(this,"ABOUT_US")){
             new AlertDialog.Builder(this)
                     .setCancelable(true)
-                    .setTitle("Got You!")
-                    .setMessage("HA HA HA ...\nIt is U.S. Not Us!\nGot You! Just joking Here After all this is joking App!\n*Don\'t Take it seriously")
-                    .setPositiveButton("OK You Got Me", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.about_us_dialog_title)
+                    .setMessage(R.string.about_us_dialog_txt)
+                    .setPositiveButton(getString(R.string.about_us_dialog_positive_btn), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            SharedPrefsUtils.setFirstTimeFalseForFile(AboutUsActivity.this,"ABOUT_US");
                         }
                     })
             .show();
- //           SharedPrefsUtils.setFirstTimeFalseForFile(this,"ABOUT_US");
- //       }
+        }
     }
+
+
 }

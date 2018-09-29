@@ -3,7 +3,7 @@
     package="com.vyas.pranav.androidjokelib">
 
     <application>
-        <activity android:name=".JokeTellingActivityLib"></activity>
+        <activity android:name=".JokeTellingActivityLib" />
     </application>
 
 </manifest>

@@ -8,10 +8,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,14 +26,11 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.vyas.pranav.androidjokelib.JokeTellingActivityLib;
 import com.vyas.pranav.javajokelibrary.Joker;
 
-import java.io.File;
-import java.io.OutputStream;
-
 import static com.vyas.pranav.androidjokelib.JokeTellingActivityLib.JOKE_KEY;
 
 public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback,EndpointsAsyncTask.AsyncCallbackBegin{
     private static final String TAG = "MainActivityNewFree";
-    ProgressBar progress;
+    private ProgressBar progress;
     private InterstitialAd mInterstitialAd;
 
     /**
@@ -54,8 +51,8 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
     private void showIntro(){
         if(SharedPrefsUtils.getFirstTimeForFile(this,"FIRST_TIME")){
             new AlertDialog.Builder(this)
-                    .setMessage("This is a free Version...\nYou might be seeing Ads in this version\nInstall paid version for AdFree Experience")
-                    .setTitle("Free Version")
+                    .setMessage(this.getString(R.string.main_free_dialog_detail))
+                    .setTitle(getString(R.string.main_free_dialog_title))
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -74,17 +71,15 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
     public void tellJoke(View view) {
         Joker jokerJavaLib = new Joker();
         String joke = jokerJavaLib.getJoke();
-        //Toast.makeText(this, "Library Returned : "+joke, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "tellJoke: Joke is :"+joke);
         if(mInterstitialAd.isLoaded()){
             mInterstitialAd.show();
         }
-        //TODO Remove 2 Comment while completeed Testing
-        //EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
-        //asyncTask.execute(joke);
-        Intent intent = new Intent(this, JokeTellingActivityLib.class);
-        intent.putExtra(JOKE_KEY,joke);
-        startActivity(intent);
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        asyncTask.execute(joke);
+        //Intent intent = new Intent(this, JokeTellingActivityLib.class);
+        //intent.putExtra(JOKE_KEY,joke);
+        //startActivity(intent);
     }
 
     /**
@@ -95,7 +90,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
      */
     @Override
     public void getString(String jokeString) {
-        Toast.makeText(this, jokeString, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, jokeString, Toast.LENGTH_LONG).show();
         progress.setVisibility(View.GONE);
         Log.d(TAG, "getString: Stopping ProgressBar");
         Intent intent = new Intent(this, JokeTellingActivityLib.class);
@@ -103,7 +98,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         startActivity(intent);
     }
 
-    public void showAds(){
+    private void showAds(){
         AdView mAdView = findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -125,7 +120,7 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         progress.setVisibility(View.VISIBLE);
     }
 
-    public void initlizeInterAdd(){
+    private void initlizeInterAdd(){
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.intertial_ad_unit_id));
         mInterstitialAd.loadAd(
@@ -147,6 +142,12 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
             case R.id.action_about_us:
                 Intent intent = new Intent(MainActivityNew.this,AboutUsActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(MainActivityNew.this,SettingsActivity.class);
+                startActivity(settingsIntent);
+                break;
         }
         return true;
     }

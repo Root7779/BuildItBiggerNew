@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:enabled="false"
+        android:key="key_dark_theme"
+        android:summary="Only Available in Paid version"
+        android:title="Enable Dark Theme" />
+</PreferenceScreen>

@@ -5,6 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorAccent">#ff80ab</item>
         <item name="colorPrimary">#6babff</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
 </resources>

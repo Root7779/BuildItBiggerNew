@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,15 +25,26 @@ import com.vyas.pranav.javajokelibrary.Joker;
 
 import static com.vyas.pranav.androidjokelib.JokeTellingActivityLib.JOKE_KEY;
 
-public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback,EndpointsAsyncTask.AsyncCallbackBegin{
+public class MainActivityNew extends AppCompatActivity implements EndpointsAsyncTask.AsyncCallback,EndpointsAsyncTask.AsyncCallbackBegin,SharedPreferences.OnSharedPreferenceChangeListener{
     private static final String TAG = "MainActivityNewPaid";
     private ProgressBar progress;
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPrefsUtils.setThemeAsUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progress = findViewById(R.id.progressBarMain);
         showIntro();
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     //Showing Intro for First Time
@@ -59,12 +73,12 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
         String joke = jokerJavaLib.getJoke();
         //Toast.makeText(this, "Library Returned : "+joke, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "tellJoke: Joke is :"+joke);
-        //TODO Remove 2 Comment while completeed Testing
-        //EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
-        //asyncTask.execute(joke);
-        Intent intent = new Intent(this, JokeTellingActivityLib.class);
-        intent.putExtra(JOKE_KEY,joke);
-        startActivity(intent);
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this,this,this);
+        asyncTask.execute(joke);
+//        Intent intent = new Intent(this, JokeTellingActivityLib.class);
+//        intent.putExtra("KEY_DARK_ENABLED",mPrefs.getBoolean(KEY_DARK_ENABLED,false));
+//        intent.putExtra(JOKE_KEY,joke);
+//        startActivity(intent);
     }
 
     /**
@@ -75,10 +89,11 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
      */
     @Override
     public void getString(String jokeString) {
-        Toast.makeText(this, jokeString, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, jokeString, Toast.LENGTH_LONG).show();
         progress.setVisibility(View.GONE);
         Log.d(TAG, "getString: Stopping ProgressBar");
         Intent intent = new Intent(this, JokeTellingActivityLib.class);
+        intent.putExtra("KEY_DARK_ENABLED",mPrefs.getBoolean(getString(R.string.key_dark_enabled),false));
         intent.putExtra(JOKE_KEY,jokeString);
         startActivity(intent);
     }
@@ -106,7 +121,19 @@ public class MainActivityNew extends AppCompatActivity implements EndpointsAsync
             case R.id.action_about_us:
                 Intent intent = new Intent(MainActivityNew.this,AboutUsActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(MainActivityNew.this,SettingsActivity.class);
+                startActivity(settingsIntent);
+                break;
         }
         return true;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Toast.makeText(this,getString(R.string.warning_change_theme), Toast.LENGTH_SHORT).show();
+        this.recreate();
     }
 }
